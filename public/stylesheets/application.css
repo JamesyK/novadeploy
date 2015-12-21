@@ -197,3 +197,7 @@
   margin-right:-2px;
   right: 2px;
 }
+
+::-webkit-input-placeholder {
+   text-align: center;
+}
