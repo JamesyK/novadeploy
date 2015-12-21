@@ -43,17 +43,12 @@ post '/users' do
 end
 
 post '/users/signin' do
-  if params[:email]
-    user = User.find_by(email: params[:email])
-    if user.email && user.password == params[:password]
-      session[:user_id] = user.id
-      flash[:notice] = "Welcome back, #{user.username}!"
-      redirect '/articles'
-    else
-      flash[:notice] = "Invalid email or password."
-      redirect '/users/signin'
-    end
-  else 
+  user = User.find_by(email: params[:email]) if User.find_by(email: params[:email])
+  if user && user.email && user.password == params[:password]
+    session[:user_id] = user.id
+    flash[:notice] = "Welcome back, #{user.username}!"
+    redirect '/articles'
+  else
     flash[:notice] = "Invalid email or password."
     redirect '/users/signin'
   end
