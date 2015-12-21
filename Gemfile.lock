@@ -32,6 +32,7 @@ GEM
       hashie
       nokogiri (~> 1.4.0)
       rest-client (~> 1.6.0)
+    pg (0.18.4)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -91,6 +92,7 @@ DEPENDENCIES
   activesupport
   bcrypt
   opengraph
+  pg
   pry
   puma
   rake
@@ -102,6 +104,3 @@ DEPENDENCIES
   sinatra-flash
   sqlite3
   tux
-
-BUNDLED WITH
-   1.10.6
