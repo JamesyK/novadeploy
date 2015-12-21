@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%= erb :'layouts/_head' %>
+  <body class="static-background">
+    <div>
+       <%= erb :'layouts/_navigation' %>
+      <div class="container">
+        <div class='row'>
+          <div class="col-md-12 ltgray text-center margin-bottom-15">
+            <%= styled_flash %>
+          </div>
+        </div>  
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

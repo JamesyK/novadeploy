@@ -1,0 +1,13 @@
+<ul class="nav nav-pills margin-bottom-15" role="tablist">
+  <li role="presentation" class="active"><a href="#date" aria-controls="date" role="tab" data-toggle="tab">Order-By Date</a></li>
+  <li role="presentation"><a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab">Order-By Popularity</a></li>
+</ul>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="date">
+    <%= erb :'/articles/_tiles', locals: { articles: @created_order } %>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="popularity">
+    <%= erb :'/articles/_tiles', locals: { articles: @likes_order } %>
+  </div>
+</div>

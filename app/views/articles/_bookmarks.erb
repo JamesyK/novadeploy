@@ -1,0 +1,9 @@
+<% if current_user.hasnt_bookmarked?(article) %>
+  <form style="display: inline;" method="POST" action="/articles/<%= article.id %>/bookmarks">
+    <button class="icon-button" type="submit"><span class="ltgray glyphicon glyphicon-bookmark"></span></button>
+  </form>
+  <% else %>
+  <form style="display: inline;" method="POST" action="/articles/<%= article.id %>/bookmarks/delete">
+    <button class="icon-button" type="submit"><span class="blue glyphicon glyphicon-bookmark"></span></button>
+  </form>
+<% end %>

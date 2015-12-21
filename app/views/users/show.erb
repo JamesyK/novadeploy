@@ -1,0 +1,46 @@
+<div class="row row-centered margin-bottom-15">
+  <div class="col-md-4 col-centered">
+    <div class="row row-centered">
+      <div class="col-md-12 col-centered avatar-position">
+          <img src="<%= @user.gravitar %>" class="center-block well avatar-background" />
+      </div>
+    </div>
+    <div class="row row-centered well user-container">
+      <div class="col-md-12 col-centered">
+        <h2 class="text-center"><%= @user.username %></h2>
+      </div>
+    </div>
+    <div class="row row-centered">
+      <div class="col-md-4 like-col-centered likes-background">
+        <h4 class="text-center"><span class="red glyphicon glyphicon-heart"></span> <%= @total_likes %></h4>
+      </div>
+      <div class="col-md-8 score-col-centered score-background">
+        <h4 class="text-center"><span class="yellow glyphicon glyphicon-star"></span> <%= @user_rank %></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if current_user.id == @user.id %>
+      <ul class="nav nav-pills margin-bottom-15" role="tablist">
+        <li role="presentation" class="active"><a href="#articles" aria-controls="articles" role="tab" data-toggle="tab">Articles</a></li>
+        <li role="presentation"><a href="#bookmarks" aria-controls="bookmarks" role="tab" data-toggle="tab">Bookmarks</a></li>
+      </ul>
+    <% else %>
+      <ul class="nav nav-pills margin-bottom-15" role="tablist">
+        <li role="presentation" class="active"><a href="#articles" aria-controls="articles" role="tab" data-toggle="tab">Articles</a></li>
+      </ul>
+    <% end %>
+  </div>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="articles">
+    <%= erb :'/articles/_tiles', locals: { articles: @articles } %>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="bookmarks">
+    <%= erb :'/articles/_tiles', locals: { articles: @bookmarks } %>
+  </div>
+</div>

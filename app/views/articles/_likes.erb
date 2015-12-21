@@ -1,0 +1,9 @@
+<% if current_user.hasnt_liked?(article) %>
+  <form style="display: inline;" method="POST" action="/articles/<%= article.id %>/likes">
+    <button class="icon-button" type="submit"><span class="ltgray glyphicon glyphicon-heart"></span></button>
+  </form>
+<% else %>
+  <form style="display: inline;" method="POST" action="/articles/<%= article.id %>/likes/delete">
+      <button class="icon-button" type="submit"><span class="red glyphicon glyphicon-heart"></span></button>
+  </form>
+<% end %>

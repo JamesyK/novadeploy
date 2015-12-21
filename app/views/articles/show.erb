@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="square" style="background-image:url('<%= @article.image %>')">
+    </div>
+    <div class="well">
+      <h3><%= @article.title %>
+      <div class="pull-right">
+        <% if current_user %>
+          <% if current_user && current_user.hasnt_liked?(@article) %>
+            <form style="display: inline;" method="POST" action="/articles/<%= @article.id %>/likes">
+              <button class="icon-button" type="submit"><span class="ltgray glyphicon glyphicon-heart"></span></button>
+            </form>
+          <% else %>
+            <form style="display: inline;" method="POST" action="/articles/<%= @article.id %>/likes/delete">
+                <button class="icon-button" type="submit"><span class="red glyphicon glyphicon-heart"></span></button>
+            </form>
+          <% end %>
+          <% if current_user && current_user.hasnt_bookmarked?(@article) %>
+            <form style="display: inline;" method="POST" action="/articles/<%= @article.id %>/bookmarks">
+              <button class="icon-button" type="submit"><span class="ltgray glyphicon glyphicon-bookmark"></span></button>
+            </form>
+          <% else %>
+           <form style="display: inline;" method="POST" action="/articles/<%= @article.id %>/bookmarks/delete">
+              <button class="icon-button" type="submit"><span class="blue glyphicon glyphicon-bookmark"></span></button>
+            </form>
+          <% end %>
+        <% end %>
+      </div>
+      </h3>
+      <p>
+        <% if current_user %>
+          <img style="width:5%" src="<%= @article.user.gravitar %>"/> <a href="/users/<%= @article.user_id %>">@<%= User.find(@article.user_id).username %></a>
+        <% else %>
+          <img style="width:5%" src="<%= @article.user.gravitar %>"/> @<%= User.find(@article.user_id).username %>
+        <% end %> 
+          | <%= @article.created_at.strftime("%b %d, %Y") %>
+      </p>
+      <p><%= @article.summary %></p>
+      <p><a href="<%= @article.url %>" target="_blank"><span class="glyphicon glyphicon-link"></span> Full Article</a></p>
+      <p><span class="label label-primary">Likes: <%= @article.likes.count %></span> <span class="label label-primary">Comments: <%= @article.comments.count %></span></p>
+      <hr/>
+      <% if current_user && current_user.hasnt_commented?(@article) %>
+        <% if @article.comments.length == 0 %>
+          <p>Be the first to post a comment.</p>
+        <% else %>
+          <p>Post a comment.</p>
+        <% end %>
+        <form method="post" action="/articles/<%= @article.id %>/comments">
+          <div class="form-group">
+            <textarea class="form-control" rows="2" name="comment" style="max-width: 100%"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default btn-sm" style="margin-top: -10px;">Post</button>
+        </form>
+        <hr/>
+      <% end %>
+      <% @article.comments.each do |c| %>
+        <% if current_user %>
+          <p><img style="width:5%" src="<%= c.user.gravitar %>"/> <a href="/users/<%= c.user_id %>"><strong>@<%= c.user.username %></strong></a> on <%= c.created_at.strftime("%b %d, %Y") %></p><p><%= c.comment %></p>
+          <% if c.user_id == current_user.id %>
+            <form method="post" action="/articles/<%= @article.id %>/comments/<%= c.id %>/delete">
+              <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+            </form>
+          <% end %>
+          <hr/>
+        <% else %>
+          <p><img style="width:5%" src="<%= c.user.gravitar %>"/> <strong>@<%= c.user.username %></strong> on <%= c.created_at.strftime("%b %d, %Y") %></p><p><%= c.comment %></p>
+          <hr/>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

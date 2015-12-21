@@ -1,0 +1,31 @@
+<div class="row">
+  <% articles.each do |article| %>
+    <div class="col-md-3">
+      <div class="well text-center">
+        <a href="/articles/<%= article.id %>">
+        <div class="square" style="background-image:url('<%= article.image %>')">
+          <div class="overlay">
+            <div class="overlay-center">
+              <p><%= article.summary.truncate(120) %></p>
+            </div>
+          </div>
+        </div>
+        </a>
+
+        <% if current_user %>
+          <h4>
+            <%= erb :'/articles/_likes', locals: { article: article } %>
+            <%= erb :'/articles/_bookmarks', locals: { article: article } %>
+          </h4>
+        <% end %>
+        <h4 style="height: 90px; clear: left;"><%= article.title %></h4>
+          <% if current_user %>
+            <p><a href="/users/<%= article.user_id %>">@<%= User.find(article.user_id).username %></a> | <%= article.created_at.strftime("%m.%d.%y") %></p>
+          <% else %>
+            <p>@<%= User.find(article.user_id).username %> | <%= article.created_at.strftime("%m.%d.%y") %></p>
+          <% end %> 
+          <p><span class="label label-primary">Likes: <%= article.likes.count %></span> <span class="label label-primary">Comments: <%= article.comments.count %></span></p>
+      </div>
+    </div>
+  <% end %>
+</div>
