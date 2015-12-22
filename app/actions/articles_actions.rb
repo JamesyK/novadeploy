@@ -24,7 +24,7 @@ get '/articles/:id' do
 end
 
 post '/articles' do
-  session[:article_url] = params[:url]
+  session[:article_url] = params[:url] if params[:url]
   redirect '/articles/edit'
 end
 
